@@ -110,10 +110,15 @@ function getMajorScale(noted, acc) {
     return scale
 }
 
+function getNaturalMinorScale(noted, acc) {
+    scale = ""
+    accidentals = generateAccidentals(noted, acc)
+}
+
 function getInterval (note1, acc1, note2, acc2) {
     accidentals = generateAccidentals(note1, acc1);
     noteDif = (note2 - note1) % 7;
-    accDif = acc1 * -1 + acc2 - (accidentals[note2 % 7] - accidentals[note1 % 7]);
+    accDif = acc2 - acc1 + (accidentals[0] - accidentals[note1 % 7]);
     intervalType = "";
     if (noteDif == 0 || noteDif == 3 || noteDif == 4) {
         switch (accDif) {
@@ -150,10 +155,21 @@ function getInterval (note1, acc1, note2, acc2) {
     return intervalType + (note2 - note1 + 1).toString();
 }
 
-function getNaturalMinorScale(noted, acc) {
-    scale = ""
-    accidentals = generateAccidentals(noted, acc)
+for (n1 = 0; n1 <= 7; n1++) {
+    for (a1 = -1; a1 <= 1; a1++) {
+        console.log(getInterval(0, 0, n1, a1))
+    }
+    
 }
 
-console.log(getMajorScale(5, 0))
-console.log(getInterval(3, 1, 6, 0))
+for (n1 = 0; n1 <= 7; n1++) {
+    console.log(getInterval(0, 0, n1, 0))
+}
+
+console.log("")
+
+for (n2 = 0; n2 <= 7; n2++) {
+    for (a2 = -1; a2 <= 1; a2++) {
+        console.log(getInterval(n2, a2, 7, 0))
+    }
+}
